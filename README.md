@@ -218,3 +218,6 @@ http://localhost:8080/
 and the history server (after the job has completed):  
 http://localhost:18081/  
 (click on the AppID link to drill down into the job execution stats and details of the DAG workflow)  
+
+## Remove untagged docker images
+`docker rmi $(docker images | grep "^<none>" | awk "{print $3}")`
