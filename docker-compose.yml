@@ -18,16 +18,20 @@ services:
     image: stevenhurwitt/spark-master
     container_name: spark-master
     ports:
-      - 8081:8080
+      - 8081:8081
       - 7077:7077
     volumes:
       - shared-workspace:/opt/workspace
+    environment:
+      - SPARK_LOCAL_IP=spark-master
+      - SPARK_WORKLOAD=master
   spark-worker-1:
     image: stevenhurwitt/spark-worker
     container_name: spark-worker-1
     environment:
-      - SPARK_WORKER_CORES=1
-      - SPARK_WORKER_MEMORY=1024m
+      - SPARK_MASTER=spark://spark-master:7077
+      - SPARK_WORKER_CORES=3
+      - SPARK_WORKER_MEMORY=2048m
     ports:
       - 4041:4040
       - 18081:18080
@@ -39,8 +43,9 @@ services:
     image: stevenhurwitt/spark-worker
     container_name: spark-worker-2
     environment:
-      - SPARK_WORKER_CORES=1
-      - SPARK_WORKER_MEMORY=1024m
+      - SPARK_MASTER=spark://spark-master:7077
+      - SPARK_WORKER_CORES=3
+      - SPARK_WORKER_MEMORY=2048m
     ports:
       - 4042:4040
       - 18082:18080

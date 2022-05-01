@@ -13,13 +13,10 @@ RUN apt-get update -y && \
     pip3 install numpy && \
     pip3 install pandas && \
     pip3 install matplotlib && \
+    pip3 install ipykernel && \
     rm -rf /var/lib/apt/lists/* && \
     ln -s /usr/local/bin/python3 /usr/bin/python
 
-# RUN jupyter notebook --generate-config
-# RUN cp /root/.jupyter/jupyter_notebook_config.py /root/.jupyter/jupyter_server_config.py
-# RUN echo "c.ServerApp.password=u''">>/root/.jupyter/jupyter_server_config.py
-# RUN echo "c.NotebookApp.password=u''">>/root/.jupyter/jupyter_notebook_config.py
 # -- Runtime
 
 EXPOSE 8888
